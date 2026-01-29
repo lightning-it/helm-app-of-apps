@@ -1,0 +1,45 @@
+---
+globalValues:
+  envName: null
+
+projectOverride: null
+
+default:
+  app:
+    enableAutoSync: true
+    autoSyncPrune: "true"
+    destination:
+      namespace: null
+      server: https://kubernetes.default.svc
+    project: default
+    chart: null
+    repoURL: https://github.com/lightning-it/lab-k8s/tree/main/helm-charts/charts
+    path: .
+    appsrepoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    appstargetRevision: main
+    targetRevision: HEAD
+    CreateNamespace: "false"
+    DeleteNamespace: "false"
+    app_values_path: ""
+    app_values: false
+    zone_values: false
+    ## should always be false and just used to remove an app including all created resources completly from clusters 
+    ## e.g.:
+    ## - set deletionFinalizers --> true
+    ## - sync app 
+    ## - set enabled --> false or delete app completely
+    ## result: app is removed from argoCD and all related resources with it from openshift
+    deletionFinalizers:
+      enabled: false
+      mode: foreground
+
+applications:
+  kubevirt:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/kubevirt
+    targetRevision: ovh
+    syncwave: 10
+    destination:
+      namespace: kubevirt

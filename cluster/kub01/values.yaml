@@ -1,0 +1,4 @@
+---
+global:
+  envName: kub01
+app_values_path: kub01
