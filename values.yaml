@@ -43,3 +43,20 @@ applications:
     syncwave: 10
     destination:
       namespace: kubevirt
+  rook-ceph-operator:
+    enabled: true
+    global_values: true
+    syncwave: -199
+    destination:
+      namespace: rook-ceph
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/rook-ceph-operator
+    targetRevision: ovh
+    ServerSideApply: true
+    ignoreDifferences:
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
+        jsonPointers:
+        - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration

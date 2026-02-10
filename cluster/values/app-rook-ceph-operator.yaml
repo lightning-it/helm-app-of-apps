@@ -1,0 +1,19 @@
+---
+rook-ceph:
+  # CSI Konfiguration - für alle Worker Nodes
+  csi:
+    # Treiber aktivieren
+    enableRbdDriver: true
+    enableCephfsDriver: true
+
+    # Plugin Placement auf ALLEN Worker Nodes
+    pluginTolerations:
+      - key: "node-role.kubernetes.io/worker"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+    pluginNodeSelector:
+      node-role.kubernetes.io/worker: "true"
+
+    provisionerNodeSelector:
+      storage-node: ""
