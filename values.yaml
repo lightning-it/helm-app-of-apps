@@ -54,6 +54,7 @@ applications:
     repoURL: https://github.com/lightning-it/lab-k8s.git
     path: helm-charts/charts/rook-ceph-operator
     targetRevision: ovh
+    appstargetRevision: ovh
     ServerSideApply: true
     ignoreDifferences:
       - group: apiextensions.k8s.io
