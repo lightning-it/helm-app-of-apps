@@ -15,7 +15,7 @@ rook-ceph-cluster:
   monitoring:
     enabled: false
     metricsDisabled: false
-    createPrometheusRules: true
+    createPrometheusRules: false
 
   cephObjectStores:
     - name: ceph-objectstore
@@ -39,7 +39,7 @@ rook-ceph-cluster:
         reclaimPolicy: Delete
         volumeBindingMode: "Immediate"
       ingress:
-        enabled: true
+        enabled: false
         host: 443
         host:
           name: s3.apps.kub01.secunet.l-it.io
