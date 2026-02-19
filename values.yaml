@@ -61,3 +61,14 @@ applications:
         kind: CustomResourceDefinition
         jsonPointers:
         - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
+  rook-ceph-instance:
+    enabled: true
+    global_values: true
+    syncwave: -140
+    destination:
+      namespace: rook-ceph
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/rook-ceph-instance
+    targetRevision: ovh
+    appstargetRevision: ovh
