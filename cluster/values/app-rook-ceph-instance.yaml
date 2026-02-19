@@ -77,29 +77,11 @@ rook-ceph-cluster:
 
     storage:
       # WICHTIG: Nur auf Nodes mit Storage-Label
-      useAllNodes: false
+      useAllNodes: true
       useAllDevices: true
       config:
         osdsPerDevice: "1"
         encryptedDevice: "true"
-
-      # Option A: Explizite Nodes (empfohlen für Stabilität)
-      nodes:
-        - name: "node1"
-          devices:
-            - name: "nvme0n1p2"
-            - name: "nvme1n1p2"
-            - name: "nvme2n1p2"
-        - name: "node2"
-          devices:
-            - name: "nvme0n1p2"
-            - name: "nvme1n1p2"
-            - name: "nvme2n1p2"
-        - name: "node3"
-          devices:
-            - name: "nvme0n1p2"
-            - name: "nvme1n1p2"
-            - name: "nvme3n1p2"
 
     cleanupPolicy:
       confirmation: ""
