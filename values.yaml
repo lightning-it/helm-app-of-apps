@@ -103,7 +103,7 @@ applications:
     destination:
       namespace: external-secrets
     repoURL: https://github.com/lightning-it/lab-k8s.git
-    path: helm-charts/charts/external-secrets-operator
+    path: helm-charts/charts/external-secrets-instance
     targetRevision: ovh
     appstargetRevision: ovh
   cert-manager-operator:
