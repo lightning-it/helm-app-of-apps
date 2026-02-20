@@ -79,7 +79,7 @@ applications:
       namespace: olm
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     targetRevision: ovh
-    path: kustomize/olm/overlays/default
+    path: kustomize/olm
     CreateNamespace: "true"
     ServerSideApply: true
     syncwave: 0
