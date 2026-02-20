@@ -72,3 +72,14 @@ applications:
     path: helm-charts/charts/rook-ceph-instance
     targetRevision: ovh
     appstargetRevision: ovh
+  olm:
+    enabled: true
+    sourceType: kustomize
+    destination:
+      namespace: olm
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    targetRevision: ovh
+    path: kustomize/olm/overlays/default
+    CreateNamespace: "true"
+    ServerSideApply: true
+    syncwave: 0
