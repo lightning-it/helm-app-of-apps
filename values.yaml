@@ -99,6 +99,7 @@ applications:
     enabled: true
     global_values: true
     syncwave: -98
+    CreateNamespace: "true"
     destination:
       namespace: external-secrets
     repoURL: https://github.com/lightning-it/lab-k8s.git
