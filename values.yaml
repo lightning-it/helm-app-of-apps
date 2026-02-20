@@ -100,7 +100,7 @@ applications:
     global_values: true
     syncwave: -98
     destination:
-      namespace: external-secrets-operator
+      namespace: external-secrets
     repoURL: https://github.com/lightning-it/lab-k8s.git
     path: helm-charts/charts/external-secrets-operator
     targetRevision: ovh
