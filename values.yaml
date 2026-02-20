@@ -83,6 +83,18 @@ applications:
     CreateNamespace: "true"
     ServerSideApply: true
     syncwave: -100
+  external-secrets-operator:
+    enabled: true
+    global_values: true
+    syncwave: -99
+    destination:
+      namespace: external-secrets-operator
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/external-secrets-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
   cert-manager-operator:
     enabled: true
     global_values: true
