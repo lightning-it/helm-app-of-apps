@@ -95,6 +95,16 @@ applications:
     path: helm-charts/charts/external-secrets-operator
     targetRevision: ovh
     appstargetRevision: ovh
+  external-secrets-instance:
+    enabled: true
+    global_values: true
+    syncwave: -98
+    destination:
+      namespace: external-secrets-operator
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/external-secrets-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
   cert-manager-operator:
     enabled: true
     global_values: true
