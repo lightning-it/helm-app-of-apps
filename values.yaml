@@ -82,4 +82,16 @@ applications:
     path: kustomize/olm
     CreateNamespace: "true"
     ServerSideApply: true
-    syncwave: 0
+    syncwave: -100
+  cert-manager-operator:
+    enabled: true
+    global_values: true
+    syncwave: -98
+    destination:
+      namespace: cert-manager-operator
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/cert-manager-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
