@@ -118,3 +118,12 @@ applications:
     path: helm-charts/charts/cert-manager-operator
     targetRevision: ovh
     appstargetRevision: ovh
+  metallb:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/metallb
+    targetRevision: ovh
+    syncwave: 9
+    destination:
+      namespace: metallb-system
