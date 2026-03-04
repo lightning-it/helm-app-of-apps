@@ -12,6 +12,24 @@ spec:
     - 10.10.10.100-10.10.10.200
 ---
 apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: api-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.10.10.99/32
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: apps-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.10.10.98/32
+---
+apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
   name: l2-advertisement
@@ -19,3 +37,5 @@ metadata:
 spec:
   ipAddressPools:
     - ovh-public-ips
+    - api-pool
+    - apps-pool
