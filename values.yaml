@@ -127,3 +127,17 @@ applications:
     syncwave: 9
     destination:
       namespace: metallb-system
+  ingress-nginx-config:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/ingress-nginx
+    targetRevision: ovh
+    syncwave: 10
+    destination:
+      namespace: kube-system
+    ignoreDifferences:
+      - group: helm.cattle.io
+        kind: HelmChartConfig
+        jsonPointers:
+        - /metadata/annotations
