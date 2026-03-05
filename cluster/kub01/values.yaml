@@ -6,3 +6,5 @@ app_values_path: kub01
 applications:
   ingress-nginx-config:
     customOverlay: kub01
+  metallb:
+    customOverlay: kub01
