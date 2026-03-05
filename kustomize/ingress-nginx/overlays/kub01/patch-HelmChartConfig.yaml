@@ -15,3 +15,5 @@ spec:
         loadBalancerIP: "10.10.10.98"
       ingressClassResource:
         default: true
+      extraArgs:
+        default-ssl-certificate: "kube-system/apps-wildcard-tls"
