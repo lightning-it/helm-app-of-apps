@@ -1,5 +1,5 @@
 ---
-globalValues:
+global:
   envName: null
 
 projectOverride: null
