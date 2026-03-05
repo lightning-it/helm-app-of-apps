@@ -123,8 +123,7 @@ applications:
     app_values: true
     syncwave: -97
     destination:
-      namespace: cert-manager
-    CreateNamespace: "true"
+      namespace: cert-manager-operator
     repoURL: https://github.com/lightning-it/lab-k8s.git
     path: helm-charts/charts/cert-manager-cluster-issuer
     targetRevision: ovh
