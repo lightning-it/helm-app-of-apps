@@ -118,6 +118,16 @@ applications:
     path: helm-charts/charts/cert-manager-operator
     targetRevision: ovh
     appstargetRevision: ovh
+  cert-manager-cluster-issuer:
+    enabled: true
+    app_values: true
+    syncwave: -97
+    destination:
+      namespace: cert-manager-operator
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/cert-manager-cluster-issuer
+    targetRevision: ovh
+    appstargetRevision: ovh
   metallb:
     enabled: true
     sourceType: kustomize
@@ -133,7 +143,7 @@ applications:
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     path: kustomize/ingress-nginx
     targetRevision: ovh
-    syncwave: 10
+    syncwave: 20
     destination:
       namespace: kube-system
     ignoreDifferences:
