@@ -8,7 +8,7 @@ metadata:
     metallb.universe.tf/address-pool: api-pool
 spec:
   type: LoadBalancer
-  loadBalancerIP: "10.10.10.99"
+  loadBalancerIP: "192.168.122.99"
   selector:
     component: kube-apiserver
   ports:
