@@ -82,6 +82,8 @@ spec:
         valuesObject:
           global:
             envName: {{ $.Values.global.envName }}
+            baseDomain: {{ $.Values.global.baseDomain }}
+            ingressSuffix: {{ $.Values.global.ingressSuffix }}
         valueFiles:
         {{- if $val.global_values }}
           - $values/cluster/values/app-{{ $key }}.yaml
