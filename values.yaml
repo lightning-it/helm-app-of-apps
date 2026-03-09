@@ -185,3 +185,4 @@ applications:
     destination:
       namespace: monitoring
     app_values: true
+    ServerSideApply: true
