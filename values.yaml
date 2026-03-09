@@ -164,7 +164,7 @@ applications:
     destination:
       namespace: monitoring
   loki-stack:
-    enabled: false
+    enabled: true
     sourceType: helm
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
