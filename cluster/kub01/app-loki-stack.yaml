@@ -29,6 +29,7 @@ grafana:
     datasources:
       enabled: true
       label: grafana_datasource
+      labelValue: "1"
   datasources:
     datasources.yaml:
       apiVersion: 1
