@@ -153,3 +153,33 @@ applications:
         kind: HelmChartConfig
         jsonPointers:
         - /metadata/annotations
+  monitoring:
+    enabled: true
+    sourceType: kustomize
+    CreateNamespace: "true"
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/monitoring
+    targetRevision: ovh
+    syncwave: 23
+    destination:
+      namespace: monitoring
+  loki-stack:
+    enabled: false
+    sourceType: helm
+    chart: loki-stack
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: HEAD
+    syncwave: 24
+    destination:
+      namespace: monitoring
+    app_values: true
+  kube-prometheus-stack:
+    enabled: false
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: HEAD
+    syncwave: 25
+    CreateNamespace: "true"
+    destination:
+      namespace: monitoring
+    app_values: true
