@@ -163,14 +163,25 @@ applications:
     syncwave: 23
     destination:
       namespace: monitoring
-  loki-stack:
+  loki:
     enabled: true
     sourceType: helm
-    chart: loki-stack
+    chart: loki
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 2.10.3
+    targetRevision: 6.53.0
     appstargetRevision: ovh
     syncwave: 24
+    destination:
+      namespace: monitoring
+    app_values: true
+  promtail:
+    enabled: true
+    sourceType: helm
+    chart: promtail
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.17.1
+    appstargetRevision: ovh
+    syncwave: 25
     destination:
       namespace: monitoring
     app_values: true
