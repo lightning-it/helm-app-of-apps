@@ -175,10 +175,11 @@ applications:
       namespace: monitoring
     app_values: true
   kube-prometheus-stack:
-    enabled: false
+    enabled: true
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: HEAD
+    targetRevision: 82.10.1
+    appstargetRevision: ovh
     syncwave: 25
     CreateNamespace: "true"
     destination:
