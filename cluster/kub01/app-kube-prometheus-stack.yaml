@@ -28,6 +28,8 @@ alertmanager:
       smtp_auth_username: "secunet-kub01@mrx.degert-it.de"
       smtp_auth_password_file: /etc/alertmanager/secrets/smtp-credentials/password
       smtp_require_tls: true
+      smtp_tls_config:
+        insecure_skip_verify: true
     route:
       group_by: ["alertname", "namespace"]
       group_wait: 30s
