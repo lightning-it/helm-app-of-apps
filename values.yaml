@@ -186,3 +186,10 @@ applications:
       namespace: monitoring
     app_values: true
     ServerSideApply: true
+    ignoreDifferences:
+      - group: ""
+        kind: Secret
+        name: kube-prometheus-stack-grafana
+        namespace: monitoring
+        jsonPointers:
+          - /data
