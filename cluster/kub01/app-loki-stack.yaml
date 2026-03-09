@@ -22,3 +22,20 @@ promtail:
   config:
     clients:
       - url: http://loki-stack:3100/loki/api/v1/push
+
+# Loki nicht als default Datasource setzen
+grafana:
+  sidecar:
+    datasources:
+      enabled: true
+      label: grafana_datasource
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Loki
+          type: loki
+          access: proxy
+          url: http://loki-stack:3100
+          version: 1
+          isDefault: false
