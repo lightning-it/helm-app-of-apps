@@ -169,6 +169,7 @@ applications:
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 2.10.3
+    appstargetRevision: ovh
     syncwave: 24
     destination:
       namespace: monitoring
