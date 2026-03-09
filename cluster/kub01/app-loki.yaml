@@ -22,14 +22,20 @@ loki:
   limits_config:
     retention_period: 3d
 
-  singleBinary:
-    replicas: 1
-    persistence:
-      enabled: true
-      storageClass: ceph-block
-      size: 50Gi
+singleBinary:
+  replicas: 1
+  persistence:
+    enabled: true
+    storageClass: ceph-block
+    size: 50Gi
 
-# Alle anderen Modi explizit deaktivieren
+# Cache komplett deaktivieren
+chunksCache:
+  enabled: false
+
+resultsCache:
+  enabled: false
+
 read:
   replicas: 0
 write:
