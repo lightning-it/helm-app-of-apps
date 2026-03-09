@@ -107,3 +107,6 @@ prometheus-node-exporter:
 
 kube-state-metrics:
   enabled: true
+
+kubeEtcd:
+  enabled: false
