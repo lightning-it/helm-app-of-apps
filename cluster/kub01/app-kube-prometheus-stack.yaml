@@ -92,6 +92,11 @@ grafana:
       access: proxy
       isDefault: false
 
+  # Prometheus explizit als einzige Default-Datasource
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true   # Prometheus bleibt default
+
 # ============================================================
 # Node Exporter + kube-state-metrics
 # ============================================================
