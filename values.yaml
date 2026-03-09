@@ -168,7 +168,7 @@ applications:
     sourceType: helm
     chart: loki-stack
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: HEAD
+    targetRevision: 2.10.3
     syncwave: 24
     destination:
       namespace: monitoring
