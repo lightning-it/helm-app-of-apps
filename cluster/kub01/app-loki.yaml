@@ -1,14 +1,12 @@
 ---
-loki:
-  deploymentMode: SingleBinary
-  auth_enabled: false
+deploymentMode: SingleBinary
 
+loki:
+  auth_enabled: false
   commonConfig:
     replication_factor: 1
-
   storage:
     type: filesystem
-
   schemaConfig:
     configs:
       - from: "2024-01-01"
@@ -18,7 +16,6 @@ loki:
         index:
           prefix: loki_index_
           period: 24h
-
   limits_config:
     retention_period: 3d
 
@@ -29,7 +26,6 @@ singleBinary:
     storageClass: ceph-block
     size: 50Gi
 
-# Cache komplett deaktivieren
 chunksCache:
   enabled: false
 
