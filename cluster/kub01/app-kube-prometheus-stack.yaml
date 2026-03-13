@@ -126,3 +126,7 @@ defaultRules:
     kubeScheduler: false
     kubeProxy: false
     etcd: false
+    kubeSchedulerAlerting: false
+    k8sContainerCpuUsageSecondsTotal: false
+  disabled:
+    KubeCPUOvercommit: true
