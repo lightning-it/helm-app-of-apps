@@ -108,5 +108,14 @@ prometheus-node-exporter:
 kube-state-metrics:
   enabled: true
 
+kubeControllerManager:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
 kubeEtcd:
   enabled: false
