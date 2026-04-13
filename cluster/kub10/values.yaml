@@ -32,10 +32,10 @@ applications:
   cert-manager-cluster-issuer:
     enabled: false
   monitoring:
-    enabled: true
+    enabled: false
   loki:
-    enabled: false
+    enabled: true
   promtail:
-    enabled: false
+    enabled: true
   kube-prometheus-stack:
-    enabled: false
+    enabled: true
