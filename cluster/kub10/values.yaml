@@ -32,7 +32,7 @@ applications:
   cert-manager-cluster-issuer:
     enabled: false
   monitoring:
-    enabled: false
+    enabled: true
   loki:
     enabled: false
   promtail:
