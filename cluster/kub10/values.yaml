@@ -6,6 +6,15 @@ global:
 app_values_path: kub10
 
 applications:
+  local-path-storage:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/local-path-storage
+    targetRevision: kub10
+    syncwave: -100
+    destination:
+      namespace: local-path-storage
   kubevirt:
     enabled: true
   ingress-nginx-config:
