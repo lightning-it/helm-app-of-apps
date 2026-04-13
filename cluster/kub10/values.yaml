@@ -17,6 +17,7 @@ applications:
       namespace: local-path-storage
   kubevirt:
     enabled: true
+    targetRevision: kub10
   ingress-nginx-config:
     enabled: false
     customOverlay: kub10
