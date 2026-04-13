@@ -1,0 +1,32 @@
+---
+global:
+  envName: kub10
+  baseDomain: poc01.cloud.l-it.io
+
+app_values_path: kub10
+
+applications:
+  kubevirt:
+    enabled: true
+  ingress-nginx-config:
+    enabled: false
+    customOverlay: kub10
+  metallb:
+    enabled: false
+    customOverlay: kub10
+  rook-ceph-operator:
+    enabled: false
+  rook-ceph-instance:
+    enabled: false
+  external-secrets-instance:
+    enabled: false
+  cert-manager-cluster-issuer:
+    enabled: false
+  monitoring:
+    enabled: false
+  loki:
+    enabled: false
+  promtail:
+    enabled: false
+  kube-prometheus-stack:
+    enabled: false
