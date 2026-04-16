@@ -15,6 +15,15 @@ applications:
     syncwave: -100
     destination:
       namespace: local-path-storage
+  whereabouts:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/whereabouts
+    targetRevision: kub10
+    syncwave: -101
+    destination:
+      namespace: kube-system
   kubevirt:
     enabled: true
     targetRevision: kub10
