@@ -45,6 +45,11 @@ applications:
     syncwave: 10
     destination:
       namespace: kubevirt
+    ignoreDifferences:
+      - group: crd.projectcalico.org
+        kind: CustomResourceDefinition
+        jsonPointers:
+        - /spec/versions/0/schema
   rook-ceph-operator:
     enabled: true
     global_values: true
