@@ -29,8 +29,9 @@ applications:
     enabled: true
     targetRevision: kub10
   ingress-nginx-config:
-    enabled: false
+    enabled: true
     customOverlay: kub02
+    targetRevision: kub10
   metallb:
     enabled: true
     customOverlay: kub02
