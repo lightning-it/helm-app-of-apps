@@ -29,10 +29,11 @@ applications:
     targetRevision: kub10
   ingress-nginx-config:
     enabled: false
-    customOverlay: kub10
+    customOverlay: kub02
   metallb:
-    enabled: false
-    customOverlay: kub10
+    enabled: true
+    customOverlay: kub02
+    targetRevision: kub10
   rook-ceph-operator:
     enabled: true
   rook-ceph-instance:
