@@ -12,7 +12,7 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.io/address-pool: apps-pool
-        loadBalancerIP: "10.12.10.98"
+        loadBalancerIP: "10.12.10.8"
       ingressClassResource:
         default: true
       extraArgs:
