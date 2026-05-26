@@ -36,7 +36,9 @@ applications:
   rook-ceph-operator:
     enabled: true
   rook-ceph-instance:
-    enabled: false
+    enabled: true
+    app_values: true
+    appstargetRevision: kub10
   external-secrets-instance:
     enabled: true
     app_values: true
