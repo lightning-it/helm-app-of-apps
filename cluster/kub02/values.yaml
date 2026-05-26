@@ -34,7 +34,7 @@ applications:
     enabled: false
     customOverlay: kub10
   rook-ceph-operator:
-    enabled: false
+    enabled: true
   rook-ceph-instance:
     enabled: false
   external-secrets-instance:
