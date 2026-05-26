@@ -50,13 +50,13 @@ applications:
     enabled: true
     appstargetRevision: kub10
   monitoring:
-    enabled: false
+    enabled: true
   loki:
-    enabled: false
+    enabled: true
     appstargetRevision: kub10
   promtail:
-    enabled: false
+    enabled: true
     appstargetRevision: kub10
   kube-prometheus-stack:
-    enabled: false
+    enabled: true
     appstargetRevision: kub10
