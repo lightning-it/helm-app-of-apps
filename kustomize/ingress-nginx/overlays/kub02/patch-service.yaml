@@ -4,4 +4,4 @@ kind: Service
 metadata:
   name: kube-api-lb
 spec:
-  loadBalancerIP: "10.12.10.9"
+  loadBalancerIP: "10.12.10.99"

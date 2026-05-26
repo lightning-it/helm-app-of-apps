@@ -1,14 +1,10 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: ovh-public-ips
+  name: dyn-ips
   namespace: metallb-system
 spec:
   addresses:
-    # OVH Additional IPs oder aus deinem vRack
-    # - 51.195.x.x/32  # Deine öffentliche IP(s)
-    # - 51.195.x.y/32
-    # Oder aus deinem privaten Netz für intern
     - 10.12.10.200-10.12.10.220
 ---
 apiVersion: metallb.io/v1beta1
@@ -18,7 +14,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 10.12.10.9/32
+    - 10.12.10.99/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -27,7 +23,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 10.12.10.8/32
+    - 10.12.10.98/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -36,6 +32,4 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-    - ovh-public-ips
-    - api-pool
-    - apps-pool
+    - dyn-ips
