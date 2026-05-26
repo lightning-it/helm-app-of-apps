@@ -40,8 +40,10 @@ applications:
   external-secrets-instance:
     enabled: true
     app_values: true
+    appstargetRevision: kub10
   cert-manager-cluster-issuer:
-    enabled: false
+    enabled: true
+    appstargetRevision: kub10
   monitoring:
     enabled: false
   loki:

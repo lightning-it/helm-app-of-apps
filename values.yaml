@@ -112,7 +112,7 @@ applications:
     repoURL: https://github.com/lightning-it/lab-k8s.git
     path: helm-charts/charts/external-secrets-instance
     targetRevision: ovh
-    appstargetRevision: kub10
+    appstargetRevision: ovh
   cert-manager-operator:
     enabled: true
     global_values: true
