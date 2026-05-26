@@ -38,7 +38,8 @@ applications:
   rook-ceph-instance:
     enabled: false
   external-secrets-instance:
-    enabled: false
+    enabled: true
+    app_values: true
   cert-manager-cluster-issuer:
     enabled: false
   monitoring:
