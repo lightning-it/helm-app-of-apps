@@ -53,6 +53,9 @@ applications:
     enabled: true
   loki:
     enabled: true
+    chart: loki
+    repoURL: https://grafana-community.github.io/helm-charts
+    targetRevision: 17.1.1
     appstargetRevision: kub10
   promtail:
     enabled: true

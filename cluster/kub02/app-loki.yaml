@@ -1,5 +1,5 @@
 ---
-deploymentMode: SingleBinary
+deploymentMode: Monolithic
 
 loki:
   auth_enabled: false
@@ -23,7 +23,7 @@ singleBinary:
   replicas: 1
   persistence:
     enabled: true
-    storageClass: local-path
+    storageClass: ceph-block
     size: 50Gi
 
 chunksCache:
