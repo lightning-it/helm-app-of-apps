@@ -60,6 +60,9 @@ applications:
   promtail:
     enabled: false
     appstargetRevision: kub10
+  alloy:
+    enabled: true
+    appstargetRevision: kub10
   kube-prometheus-stack:
     enabled: true
     appstargetRevision: kub10

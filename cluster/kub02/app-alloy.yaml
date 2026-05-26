@@ -1,0 +1,10 @@
+---
+config:
+  loki.source.kubernetes:
+    name: kubernetes-logs
+    forward_to: [loki.write.default]
+
+  loki.write:
+    name: default
+    endpoint:
+      url: "http://loki.monitoring:3100/loki/api/v1/push"

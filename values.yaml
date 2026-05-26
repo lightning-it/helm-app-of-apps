@@ -190,6 +190,17 @@ applications:
     destination:
       namespace: monitoring
     app_values: true
+  alloy:
+    enabled: false
+    sourceType: helm
+    chart: alloy
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 1.8.2
+    appstargetRevision: ovh
+    syncwave: 25
+    destination:
+      namespace: monitoring
+    app_values: true
   kube-prometheus-stack:
     enabled: true
     chart: kube-prometheus-stack
