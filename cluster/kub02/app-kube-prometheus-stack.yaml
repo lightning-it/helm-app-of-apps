@@ -62,6 +62,9 @@ grafana:
       - grafana.apps.kub02.poc01.cloud.l-it.io
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    tls:
+      - hosts:
+        - grafana.apps.kub02.poc01.cloud.l-it.io
 
   grafana.ini:
     server:
