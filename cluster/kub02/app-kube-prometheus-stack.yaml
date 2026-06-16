@@ -39,6 +39,8 @@ alertmanager:
       routes:
         - matchers:
             - alertname = "Watchdog"
+          receiver: blackhole
+        - matchers:
             - alertname = "InfoInhibitor"
           receiver: blackhole
     receivers:
