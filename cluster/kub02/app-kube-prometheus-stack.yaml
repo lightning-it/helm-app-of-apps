@@ -9,24 +9,42 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: local-path
+          storageClassName: ceph-block
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 5Gi
+    secrets:
+      - smtp-credentials
+    volumes:
+      - name: smtp-credentials
+        secret:
+          secretName: smtp-credentials
 
   config:
+    global:
+      smtp_smarthost: "mrx.degert-it.de:588"
+      smtp_from: "k8s+secunet-kub02@degert-it.de"
+      smtp_auth_username: "secunet-kub01@mrx.degert-it.de"
+      smtp_auth_password_file: /etc/alertmanager/secrets/smtp-credentials/password
+      smtp_require_tls: true
+      smtp_tls_config:
+        insecure_skip_verify: true
     route:
       group_by: ["alertname", "namespace"]
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 12h
-      receiver: blackhole
+      receiver: email
       routes:
         - matchers:
             - alertname = "Watchdog"
           receiver: blackhole
     receivers:
+      - name: email
+        email_configs:
+          - to: "deg@l-it.io"
+            send_resolved: true
       - name: blackhole  # Watchdog Alert unterdrücken
 
 # ============================================================
@@ -39,7 +57,7 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: local-path
+          storageClassName: ceph-block
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -52,7 +70,7 @@ grafana:
   enabled: true
   persistence:
     enabled: true
-    storageClassName: local-path
+    storageClassName: ceph-block
     size: 10Gi
 
   ingress:
