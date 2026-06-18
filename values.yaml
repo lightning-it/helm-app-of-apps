@@ -50,6 +50,11 @@ applications:
         kind: CustomResourceDefinition
         jsonPointers:
         - /spec/versions/0/schema
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
+        name: cdis.cdi.kubevirt.io
+        jsonPointers:
+        - /spec/versions
   rook-ceph-operator:
     enabled: true
     global_values: true
