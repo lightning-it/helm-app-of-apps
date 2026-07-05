@@ -1,10 +1,14 @@
 # helm-app-of-apps
 
-<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
+<!-- BEGIN LIT_QUALITY_BADGES -->
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lightning-it/helm-app-of-apps/badge)](https://scorecard.dev/viewer/?uri=github.com/lightning-it/helm-app-of-apps)
 [![CI](https://github.com/lightning-it/helm-app-of-apps/actions/workflows/repository-quality.yml/badge.svg?branch=develop)](https://github.com/lightning-it/helm-app-of-apps/actions/workflows/repository-quality.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lightning-it/helm-app-of-apps/badge)](https://scorecard.dev/viewer/?uri=github.com/lightning-it/helm-app-of-apps)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+<!-- END LIT_QUALITY_BADGES -->
+
+<!-- BEGIN LIT_SHARED_RELEASE_MODEL -->
 
 ## Release and Quality Model
 
@@ -22,5 +26,13 @@ See [RELEASE.md](./RELEASE.md) for:
 Repository classification: **Helm Chart Repository**.
 Required test profiles: `helm-lint, helm-template, values-validation`.
 Publishing targets: `none`.
+
+## Supported and Tested Platforms
+
+| Platform / Product | Status | Validation |
+|---|---:|---|
+| ubuntu-latest | Supported | Helm lint/template |
+| helm | Tested where applicable | Helm lint/template |
+| kubernetes | Tested where applicable | Helm lint/template |
 
 <!-- END LIT_SHARED_RELEASE_MODEL -->
