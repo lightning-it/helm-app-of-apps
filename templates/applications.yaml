@@ -1,3 +1,5 @@
+{{- /* An unset envName is the safe, render-nothing default used by chart linting. */ -}}
+{{- if .Values.global.envName }}
 {{- range $key,$val := .Values.applications }}
 {{- /*
 in order to use tpl within a range, _and_ have the key/val available to sub-templates,
@@ -116,5 +118,6 @@ spec:
   {{- else if $.Values.default.app.extraFields }}
     {{ tpl $.Values.default.app.extraFields $ | indent 2 }}
   {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}
