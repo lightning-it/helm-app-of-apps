@@ -1,0 +1,108 @@
+---
+rook-ceph-cluster:
+  operatorNamespace: rook-ceph
+
+  toolbox:
+    enabled: true
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+
+  monitoring:
+    enabled: false
+    metricsDisabled: false
+    createPrometheusRules: false
+
+  cephObjectStores:
+    - name: ceph-objectstore
+      spec:
+        metadataPool:
+          replicated:
+            size: 3
+        dataPool:
+          replicated:
+            size: 3
+        gateway:
+          port: 80
+          instances: 2
+      storageClass:
+        enabled: true
+        parameters:
+          objectStoreName: ceph-objectstore
+          objectStoreNamespace: rook-ceph
+          region: us-east-1
+        name: ceph-bucket
+        reclaimPolicy: Delete
+        volumeBindingMode: "Immediate"
+      ingress:
+        enabled: false
+        host: 443
+        host:
+          name: s3.apps.kub01.secunet.l-it.io
+          path: /
+          pathType: Prefix
+
+  cephClusterSpec:
+    monitoring:
+      enabled: true
+      metricsDisabled: false
+      exporter:
+        perfCountersPrioLimit: 5
+        statsPeriodSeconds: 5
+
+    network:
+      connections:
+        encryption:
+          enabled: true
+        requireMsgr2: true
+        compression:
+          enabled: false
+
+    crashCollector:
+      disable: false
+
+    disruptionManagement:
+      managePodBudgets: true
+      osdMaintenanceTimeout: 30
+      pgHealthCheckTimeout: 0
+
+    logCollector:
+      enabled: true
+      periodicity: daily
+      maxLogSize: 500M
+
+    storage:
+      # WICHTIG: Nur auf Nodes mit Storage-Label
+      useAllNodes: true
+      useAllDevices: true
+      config:
+        osdsPerDevice: "1"
+        encryptedDevice: "true"
+
+    cleanupPolicy:
+      confirmation: ""
+      sanitizeDisks:
+        method: quick
+        dataSource: zero
+        iteration: 1
+      allowUninstallWithVolumes: false
+
+    placement:
+      all:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            # NUR auf Nodes mit Storage-Label
+            - matchExpressions:
+              - key: cluster.ocs.openshift.io/openshift-storage
+                operator: In
+                values:
+                - ""
+        tolerations:
+        - key: cluster.ocs.openshift.io/openshift-storage
+          operator: Exists
+          effect: NoSchedule

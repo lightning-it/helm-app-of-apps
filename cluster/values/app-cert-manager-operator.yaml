@@ -1,0 +1,17 @@
+---
+# Using sub-chart helper-operator
+helper-operator:
+  operators:
+    cert-manager:
+      subscription:
+        csv: cert-manager.v1.16.5
+        name: cert-manager
+# Using sub-chart helper-status-checker
+helper-status-checker:
+  checks:
+    - operatorName: cert-manager
+      installCSV: cert-manager.v1.16.5
+      namespace:
+        name: cert-manager-operator
+      serviceAccount:
+        name: "sa-cert-manager-operator"

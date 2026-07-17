@@ -1,0 +1,35 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: dyn-ips
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.12.10.200-10.12.10.220
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: api-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.12.10.99/32
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: apps-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 10.12.10.98/32
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - dyn-ips

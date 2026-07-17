@@ -1,0 +1,12 @@
+---
+global:
+  envName: kub01
+  baseDomain: poc01.cloud.l-it.io
+
+app_values_path: kub01
+
+applications:
+  ingress-nginx-config:
+    customOverlay: kub01
+  metallb:
+    customOverlay: kub01

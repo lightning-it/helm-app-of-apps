@@ -1,0 +1,235 @@
+---
+global:
+  envName: null
+  baseDomain: null
+  ingressSuffix: apps
+
+projectOverride: null
+
+default:
+  app:
+    enableAutoSync: true
+    autoSyncPrune: "true"
+    destination:
+      namespace: null
+      server: https://kubernetes.default.svc
+    project: default
+    chart: null
+    repoURL: https://github.com/lightning-it/lab-k8s/tree/main/helm-charts/charts
+    path: .
+    appsrepoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    appstargetRevision: main
+    targetRevision: HEAD
+    CreateNamespace: "false"
+    DeleteNamespace: "false"
+    app_values_path: ""
+    app_values: false
+    zone_values: false
+    ## should always be false and just used to remove an app including all created resources completly from clusters 
+    ## e.g.:
+    ## - set deletionFinalizers --> true
+    ## - sync app 
+    ## - set enabled --> false or delete app completely
+    ## result: app is removed from argoCD and all related resources with it from openshift
+    deletionFinalizers:
+      enabled: false
+      mode: foreground
+
+applications:
+  kubevirt:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/kubevirt
+    targetRevision: ovh
+    syncwave: 10
+    destination:
+      namespace: kubevirt
+    ignoreDifferences:
+      - group: crd.projectcalico.org
+        kind: CustomResourceDefinition
+        jsonPointers:
+        - /spec/versions/0/schema
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
+        name: cdis.cdi.kubevirt.io
+        jsonPointers:
+        - /spec/versions
+  rook-ceph-operator:
+    enabled: true
+    global_values: true
+    syncwave: -199
+    destination:
+      namespace: rook-ceph
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/rook-ceph-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
+    ServerSideApply: true
+    ignoreDifferences:
+      - group: apiextensions.k8s.io
+        kind: CustomResourceDefinition
+        jsonPointers:
+        - /metadata/annotations/kubectl.kubernetes.io~1last-applied-configuration
+  rook-ceph-instance:
+    enabled: true
+    global_values: true
+    syncwave: -140
+    destination:
+      namespace: rook-ceph
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/rook-ceph-instance
+    targetRevision: ovh
+    appstargetRevision: ovh
+  olm:
+    enabled: true
+    sourceType: kustomize
+    destination:
+      namespace: olm
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    targetRevision: ovh
+    path: kustomize/olm
+    CreateNamespace: "true"
+    ServerSideApply: true
+    syncwave: -100
+  external-secrets-operator:
+    enabled: true
+    global_values: true
+    syncwave: -99
+    destination:
+      namespace: external-secrets-operator
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/external-secrets-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
+  external-secrets-instance:
+    enabled: true
+    global_values: true
+    syncwave: -98
+    CreateNamespace: "true"
+    destination:
+      namespace: external-secrets
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/external-secrets-instance
+    targetRevision: ovh
+    appstargetRevision: ovh
+  cert-manager-operator:
+    enabled: true
+    global_values: true
+    syncwave: -98
+    destination:
+      namespace: cert-manager-operator
+    CreateNamespace: "true"
+    DeleteNamespace: "false"
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/cert-manager-operator
+    targetRevision: ovh
+    appstargetRevision: ovh
+  cert-manager-cluster-issuer:
+    enabled: true
+    app_values: true
+    syncwave: -97
+    destination:
+      namespace: cert-manager-operator
+    repoURL: https://github.com/lightning-it/lab-k8s.git
+    path: helm-charts/charts/cert-manager-cluster-issuer
+    targetRevision: ovh
+    appstargetRevision: ovh
+  metallb:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/metallb
+    targetRevision: ovh
+    syncwave: 9
+    destination:
+      namespace: metallb-system
+  ingress-nginx-config:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/ingress-nginx
+    targetRevision: ovh
+    syncwave: 20
+    destination:
+      namespace: kube-system
+    ignoreDifferences:
+      - group: helm.cattle.io
+        kind: HelmChartConfig
+        jsonPointers:
+        - /metadata/annotations
+  monitoring:
+    enabled: true
+    sourceType: kustomize
+    CreateNamespace: "true"
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/monitoring
+    targetRevision: ovh
+    syncwave: 23
+    destination:
+      namespace: monitoring
+  loki:
+    enabled: true
+    sourceType: helm
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.53.0
+    appstargetRevision: ovh
+    syncwave: 24
+    destination:
+      namespace: monitoring
+    app_values: true
+  promtail:
+    enabled: true
+    sourceType: helm
+    chart: promtail
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.17.1
+    appstargetRevision: ovh
+    syncwave: 25
+    destination:
+      namespace: monitoring
+    app_values: true
+  alloy:
+    enabled: false
+    sourceType: helm
+    chart: alloy
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 1.8.2
+    appstargetRevision: ovh
+    syncwave: 25
+    destination:
+      namespace: monitoring
+    app_values: true
+  kube-prometheus-stack:
+    enabled: true
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 82.10.1
+    appstargetRevision: ovh
+    syncwave: 25
+    CreateNamespace: "true"
+    destination:
+      namespace: monitoring
+    app_values: true
+    ServerSideApply: true
+    ignoreDifferences:
+      - group: ""
+        kind: Secret
+        name: kube-prometheus-stack-grafana
+        namespace: monitoring
+        jsonPointers:
+          - /data
+      - group: apps
+        kind: Deployment
+        name: kube-prometheus-stack-grafana
+        namespace: monitoring
+        jqPathExpressions:
+          - .spec.template.metadata.annotations["checksum/config"]
+          - .spec.template.metadata.annotations["checksum/sc-dashboard-provider-config"]
+          - .spec.template.metadata.annotations["checksum/secret"]

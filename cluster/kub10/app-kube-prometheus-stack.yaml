@@ -1,0 +1,114 @@
+nameOverride: prometheus
+
+# ============================================================
+# Alertmanager
+# ============================================================
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+
+  config:
+    route:
+      group_by: ["alertname", "namespace"]
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: blackhole
+      routes:
+        - matchers:
+            - alertname = "Watchdog"
+          receiver: blackhole
+    receivers:
+      - name: blackhole  # Watchdog Alert unterdrücken
+
+# ============================================================
+# Prometheus
+# ============================================================
+prometheus:
+  enabled: true
+  prometheusSpec:
+    retention: 7d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+
+# ============================================================
+# Grafana
+# ============================================================
+grafana:
+  enabled: true
+  persistence:
+    enabled: true
+    storageClassName: local-path
+    size: 10Gi
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.apps.kub10.poc01.cloud.l-it.io
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+  grafana.ini:
+    server:
+      root_url: https://grafana.apps.kub10.poc01.cloud.l-it.io
+    smtp:
+      enabled: true
+
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki:3100
+      access: proxy
+      isDefault: false
+
+  # Prometheus explizit als einzige Default-Datasource
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true   # Prometheus bleibt default
+
+# ============================================================
+# Node Exporter + kube-state-metrics
+# ============================================================
+prometheus-node-exporter:
+  enabled: true
+
+kube-state-metrics:
+  enabled: true
+
+kubeControllerManager:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeProxy:
+  enabled: false
+
+kubeEtcd:
+  enabled: false
+
+defaultRules:
+  rules:
+    kubeControllerManager: false
+    kubeScheduler: false
+    kubeProxy: false
+    etcd: false
+    kubeSchedulerAlerting: false
+    k8sContainerCpuUsageSecondsTotal: false
+  disabled:
+    KubeCPUOvercommit: true

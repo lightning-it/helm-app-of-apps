@@ -1,0 +1,123 @@
+{{- /* An unset envName is the safe, render-nothing default used by chart linting. */ -}}
+{{- if .Values.global.envName }}
+{{- range $key,$val := .Values.applications }}
+{{- /*
+in order to use tpl within a range, _and_ have the key/val available to sub-templates,
+need to add some variables to the root context.
+*/ -}}
+{{- $_ := set $ "curAppName" (print $.Values.global.envName "-" $key) }}
+{{- $envPath := "" }}
+{{- $appValuesPath := $.Values.app_values_path | default $.Values.default.app.app_values_path }}
+{{- if eq $appValuesPath "" }}
+  {{- $envPath = printf "%s/%s/%s" (substr 8 11 $.Values.global.envName) (substr 11 14 $.Values.global.envName) (required "A valid envName is required" $.Values.global.envName) }}
+{{- else }}
+  {{- $envPath = $appValuesPath }}
+{{- end }}
+{{- if $val.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ $val.syncwave | default "0" }}"
+  {{- /* if deletionFinalizers if not set at all on app level we need to fall back to default */ -}}
+  {{- $delFin := $val.deletionFinalizers | default $.Values.default.app.deletionFinalizers }}
+  {{- if ($delFin.enabled | default $.Values.default.app.deletionFinalizers.enabled) }}
+  finalizers:
+    {{- if eq ($delFin.mode | default $.Values.default.app.deletionFinalizers.mode) "background" }}
+    - resources-finalizer.argocd.argoproj.io/background
+    {{- else }}
+    - resources-finalizer.argocd.argoproj.io
+    {{- end }}
+  {{- end }}
+  name: {{ $key }}
+  namespace: infra-argocd
+spec:
+  destination:
+    namespace: {{ $val.destination.namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified for %s" $key ) }}
+    server: {{ $val.destination.server | default $.Values.default.app.destination.server | required (printf "No destination.server specified for %s" $key ) }}
+  info:
+  - name: Description
+    value: Deploy and configure {{ $key }}
+  {{- if $.Values.projectOverride }}
+  project: {{ $.Values.projectOverride }}
+  {{- else }}
+  project: {{ $val.project | default $.Values.default.app.project | required (printf "No project specified for %s" $key ) }}
+  {{- end }}
+  {{- if $val.enableAutoSync | default $.Values.default.app.enableAutoSync }}
+  syncPolicy:
+    automated:
+      prune: {{ $val.autoSyncPrune | default $.Values.default.app.autoSyncPrune | default true }}
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 10m
+      limit: 5
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace={{ $val.CreateNamespace | default $.Values.default.app.CreateNamespace }}
+      - DeleteNamespace={{ $val.DeleteNamespace | default $.Values.default.app.DeleteNamespace }}
+      {{- if $val.ServerSideApply }}
+      - ServerSideApply={{ $val.ServerSideApply }}
+      {{- end }}
+      {{- if $val.Replace }}
+      - Replace={{ $val.Replace }}
+      {{- end }}
+  {{- end }}
+  {{- if $val.ignoreDifferences }}
+  ignoreDifferences:
+{{ toYaml $val.ignoreDifferences | indent 4 }}
+  {{- end }}
+
+  {{/* --- Source Section --- */}}
+  {{- if eq ($val.sourceType | default "helm") "kustomize" }}
+  {{- $overlayPath := $val.customOverlay | default "default" }}
+  source:
+    repoURL: {{ $val.repoURL | default $.Values.default.app.repoURL }}
+    path: {{ printf "%s/overlays/%s" ($val.path | required (printf "No kustomize base path for %s" $key)) $overlayPath }}
+    targetRevision: {{ $val.targetRevision | default $.Values.default.app.targetRevision }}
+  {{- else }}
+  sources:
+    - helm:
+        valuesObject:
+          global:
+            envName: {{ $.Values.global.envName }}
+            baseDomain: {{ $.Values.global.baseDomain }}
+            ingressSuffix: {{ $.Values.global.ingressSuffix }}
+        valueFiles:
+        {{- if $val.global_values }}
+          - $values/cluster/values/app-{{ $key }}.yaml
+        {{- end }}
+        {{- if eq $appValuesPath "" }}
+          {{- if $val.stage_values | default $.Values.default.app.stage_values }}
+            - $values/cluster/{{ $.Values.global.envName | substr 8 11 }}/values/app-{{ $key }}.yaml
+          {{- end }}
+          {{- if $val.zone_values }}
+            - $values/cluster/{{ printf "%s/%s" (substr 8 11 $.Values.global.envName) (substr 11 14 $.Values.global.envName) }}/app-{{ $key }}.yaml
+          {{- end }}
+        {{- end }}
+        {{- if $val.app_values | default $.Values.default.app.app_values }}
+          - $values/cluster/{{ $envPath }}/app-{{ $key }}.yaml
+        {{- end }}
+      repoURL: {{ $val.repoURL | default $.Values.default.app.repoURL | required (printf "No repoURL specified for %s" $key ) }}
+      {{- if $val.path }}
+      path: {{ $val.path }}
+      {{- else }}
+      chart: {{ $val.chart | default $key }}
+      {{- end }}
+      targetRevision: {{ $val.targetRevision | required (printf "No source.targetRevision specified for %s" $key ) }}
+    - ref: values
+      repoURL: {{ $val.appsrepoURL | default $.Values.default.app.appsrepoURL }}
+      targetRevision: {{ $val.appstargetRevision | default $.Values.default.app.appstargetRevision }}
+  {{- end }}
+
+  {{- if $val.extraFields }}
+    {{ tpl $val.extraFields $ | indent 2 }}
+  {{- else if $.Values.default.app.extraFields }}
+    {{ tpl $.Values.default.app.extraFields $ | indent 2 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

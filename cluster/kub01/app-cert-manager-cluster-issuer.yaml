@@ -1,0 +1,19 @@
+---
+issuer:
+  vault:
+    enabled: false   # oder true wenn du beides willst
+
+  letsencrypt:
+    enabled: true
+    email: deg@l-it.io
+
+css:
+  enabled: true
+  name: hashicorp-vault
+  cloudflareSecretPath: kub01/cloudflare
+  cloudflareSecretProperty: api-token
+
+certificate:
+  enabled: true
+  dnsNames:
+    - "*.apps.kub01.poc01.cloud.l-it.io"

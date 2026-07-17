@@ -1,0 +1,5 @@
+resources:
+  - kubevirt-operator.yaml
+  - kubevirt-cr.yaml
+  - cdi-operator.yaml
+  - cdi-cr.yaml
