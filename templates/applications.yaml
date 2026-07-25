@@ -9,7 +9,7 @@ need to add some variables to the root context.
 {{- $envPath := "" }}
 {{- $appValuesPath := $.Values.app_values_path | default $.Values.default.app.app_values_path }}
 {{- if eq $appValuesPath "" }}
-  {{- $envPath = printf "%s/%s/%s" (substr 8 11 $.Values.global.envName) (substr 11 14 $.Values.global.envName) (required "A valid envName is required" $.Values.global.envName) }}
+  {{- $envPath = required "A valid envName is required" $.Values.global.envName }}
 {{- else }}
   {{- $envPath = $appValuesPath }}
 {{- end }}
@@ -44,7 +44,11 @@ spec:
   {{- else }}
   project: {{ $val.project | default $.Values.default.app.project | required (printf "No project specified for %s" $key ) }}
   {{- end }}
-  {{- if $val.enableAutoSync | default $.Values.default.app.enableAutoSync }}
+  {{- $enableAutoSync := $.Values.default.app.enableAutoSync }}
+  {{- if hasKey $val "enableAutoSync" }}
+    {{- $enableAutoSync = $val.enableAutoSync }}
+  {{- end }}
+  {{- if $enableAutoSync }}
   syncPolicy:
     automated:
       prune: {{ $val.autoSyncPrune | default $.Values.default.app.autoSyncPrune | default true }}

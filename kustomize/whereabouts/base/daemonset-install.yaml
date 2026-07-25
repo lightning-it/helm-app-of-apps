@@ -1,4 +1,4 @@
-# Dont'forget to update deployment/whereabouts-chart/templates/daemonset.yaml as well
+# Don't forget to update deployment/whereabouts-chart/templates/daemonset.yaml as well
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -120,10 +120,10 @@ spec:
         args:
           - -c
           - |
-            SLEEP=false source /install-cni.sh
+            SLEEP=false . /install-cni.sh
             /token-watcher.sh &
             /ip-control-loop -log-level debug
-        image: ghcr.io/k8snetworkplumbingwg/whereabouts:latest
+        image: ghcr.io/k8snetworkplumbingwg/whereabouts@sha256:825e365861a06c1c057e050791e02b9092b11c602a778b60e8c80530121ff170
         env:
         - name: NODENAME
           valueFrom:

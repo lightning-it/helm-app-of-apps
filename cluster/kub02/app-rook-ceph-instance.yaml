@@ -40,7 +40,7 @@ rook-ceph-cluster:
         volumeBindingMode: "Immediate"
       ingress:
         enabled: false
-        host: 443
+        port: 443
         host:
           name: s3.apps.kub02.secunet.l-it.io
           path: /

@@ -15,7 +15,7 @@ default:
       server: https://kubernetes.default.svc
     project: default
     chart: null
-    repoURL: https://github.com/lightning-it/lab-k8s/tree/main/helm-charts/charts
+    repoURL: https://github.com/lightning-it/lab-k8s.git
     path: .
     appsrepoURL: https://github.com/lightning-it/helm-app-of-apps.git
     appstargetRevision: main
@@ -25,7 +25,7 @@ default:
     app_values_path: ""
     app_values: false
     zone_values: false
-    ## should always be false and just used to remove an app including all created resources completly from clusters 
+    ## should always be false and just used to remove an app including all created resources completely from clusters
     ## e.g.:
     ## - set deletionFinalizers --> true
     ## - sync app 
