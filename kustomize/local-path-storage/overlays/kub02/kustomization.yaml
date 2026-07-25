@@ -9,6 +9,5 @@ patches:
       name: local-path
     patch: |-
       - op: replace
-        path: /metadata/annotations
-        value:
-          storageclass.kubernetes.io/is-default-class: "false"
+        path: /metadata/annotations/storageclass.kubernetes.io~1is-default-class
+        value: "false"

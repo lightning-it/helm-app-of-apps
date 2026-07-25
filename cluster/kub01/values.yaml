@@ -7,8 +7,37 @@ app_values_path: kub01
 
 applications:
   monitoring:
+    enabled: true
     customOverlay: kub01
   ingress-nginx-config:
+    enabled: true
     customOverlay: kub01
   metallb:
+    enabled: true
     customOverlay: kub01
+  app:
+    enabled: false
+  kubevirt:
+    enabled: false
+  rook-ceph-operator:
+    enabled: false
+  rook-ceph-instance:
+    enabled: false
+  olm:
+    enabled: false
+  external-secrets-operator:
+    enabled: false
+  external-secrets-instance:
+    enabled: false
+  cert-manager-operator:
+    enabled: false
+  cert-manager-cluster-issuer:
+    enabled: false
+  loki:
+    enabled: false
+  promtail:
+    enabled: false
+  alloy:
+    enabled: false
+  kube-prometheus-stack:
+    enabled: false

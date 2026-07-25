@@ -6,13 +6,8 @@ in order to use tpl within a range, _and_ have the key/val available to sub-temp
 need to add some variables to the root context.
 */ -}}
 {{- $_ := set $ "curAppName" (print $.Values.global.envName "-" $key) }}
-{{- $envPath := "" }}
 {{- $appValuesPath := $.Values.app_values_path | default $.Values.default.app.app_values_path }}
-{{- if eq $appValuesPath "" }}
-  {{- $envPath = required "A valid envName is required" $.Values.global.envName }}
-{{- else }}
-  {{- $envPath = $appValuesPath }}
-{{- end }}
+{{- $envPath := $appValuesPath | default $.Values.global.envName }}
 {{- if $val.enabled }}
 ---
 apiVersion: argoproj.io/v1alpha1
