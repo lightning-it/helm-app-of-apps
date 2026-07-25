@@ -33,9 +33,10 @@ metadata:
   name: {{ $.curAppName }}
   namespace: infra-argocd
 spec:
+  {{- $destination := $val.destination | default dict }}
   destination:
-    namespace: {{ $val.destination.namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified for %s" $key ) }}
-    server: {{ $val.destination.server | default $.Values.default.app.destination.server | required (printf "No destination.server specified for %s" $key ) }}
+    namespace: {{ $destination.namespace | default $.Values.default.app.destination.namespace | required (printf "No destination.namespace specified for %s" $key ) }}
+    server: {{ $destination.server | default $.Values.default.app.destination.server | required (printf "No destination.server specified for %s" $key ) }}
   info:
   - name: Description
     value: Deploy and configure {{ $key }}
