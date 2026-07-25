@@ -12,7 +12,7 @@ applications:
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     path: kustomize/local-path-storage
     customOverlay: kub02
-    targetRevision: kub10
+    targetRevision: develop
     syncwave: -100
     destination:
       namespace: local-path-storage
@@ -21,34 +21,34 @@ applications:
     sourceType: kustomize
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     path: kustomize/whereabouts
-    targetRevision: kub10
+    targetRevision: develop
     syncwave: -101
     destination:
       namespace: kube-system
   kubevirt:
     enabled: true
-    targetRevision: kub10
+    targetRevision: develop
   ingress-nginx-config:
     enabled: true
     customOverlay: kub02
-    targetRevision: kub10
+    targetRevision: develop
   metallb:
     enabled: true
     customOverlay: kub02
-    targetRevision: kub10
+    targetRevision: develop
   rook-ceph-operator:
     enabled: true
   rook-ceph-instance:
     enabled: true
     app_values: true
-    appstargetRevision: kub10
+    appstargetRevision: develop
   external-secrets-instance:
     enabled: true
     app_values: true
-    appstargetRevision: kub10
+    appstargetRevision: develop
   cert-manager-cluster-issuer:
     enabled: true
-    appstargetRevision: kub10
+    appstargetRevision: develop
   monitoring:
     enabled: true
     customOverlay: kub02
@@ -57,13 +57,13 @@ applications:
     chart: loki
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 17.1.1
-    appstargetRevision: kub10
+    appstargetRevision: develop
   promtail:
     enabled: false
-    appstargetRevision: kub10
+    appstargetRevision: develop
   alloy:
     enabled: true
-    appstargetRevision: kub10
+    appstargetRevision: develop
   kube-prometheus-stack:
     enabled: true
-    appstargetRevision: kub10
+    appstargetRevision: develop

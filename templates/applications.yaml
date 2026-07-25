@@ -87,9 +87,9 @@ spec:
     - helm:
         valuesObject:
           global:
-            envName: {{ $.Values.global.envName }}
-            baseDomain: {{ $.Values.global.baseDomain }}
-            ingressSuffix: {{ $.Values.global.ingressSuffix }}
+            envName: {{ $.Values.global.envName | quote }}
+            baseDomain: {{ required "global.baseDomain is required" $.Values.global.baseDomain | quote }}
+            ingressSuffix: {{ $.Values.global.ingressSuffix | quote }}
         valueFiles:
         {{- if $val.global_values }}
           - $values/cluster/values/app-{{ $key }}.yaml

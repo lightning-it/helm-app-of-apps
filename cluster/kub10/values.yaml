@@ -11,7 +11,7 @@ applications:
     sourceType: kustomize
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     path: kustomize/local-path-storage
-    targetRevision: kub10
+    targetRevision: develop
     syncwave: -100
     destination:
       namespace: local-path-storage
@@ -20,13 +20,13 @@ applications:
     sourceType: kustomize
     repoURL: https://github.com/lightning-it/helm-app-of-apps.git
     path: kustomize/whereabouts
-    targetRevision: kub10
+    targetRevision: develop
     syncwave: -101
     destination:
       namespace: kube-system
   kubevirt:
     enabled: true
-    targetRevision: kub10
+    targetRevision: develop
   ingress-nginx-config:
     enabled: false
     customOverlay: kub10
@@ -45,10 +45,10 @@ applications:
     enabled: false
   loki:
     enabled: false
-    appstargetRevision: kub10
+    appstargetRevision: develop
   promtail:
     enabled: false
-    appstargetRevision: kub10
+    appstargetRevision: develop
   kube-prometheus-stack:
     enabled: false
-    appstargetRevision: kub10
+    appstargetRevision: develop
