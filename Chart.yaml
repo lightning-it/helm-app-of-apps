@@ -1,0 +1,5 @@
+apiVersion: v2
+name: app-of-apps
+description: App-of-apps Master chart
+version: 0.0.15
+home: https://git01.k8s.beexact.tech/helm/app-of-apps
