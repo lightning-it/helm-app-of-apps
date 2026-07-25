@@ -111,7 +111,7 @@ spec:
       {{- else }}
       chart: {{ $val.chart | default $key }}
       {{- end }}
-      targetRevision: {{ $val.targetRevision | required (printf "No source.targetRevision specified for %s" $key ) }}
+      targetRevision: {{ $val.targetRevision | default $.Values.default.app.targetRevision | required (printf "No source.targetRevision specified for %s" $key ) }}
     - ref: values
       repoURL: {{ $val.appsrepoURL | default $.Values.default.app.appsrepoURL }}
       targetRevision: {{ $val.appstargetRevision | default $.Values.default.app.appstargetRevision }}
