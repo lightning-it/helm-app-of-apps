@@ -33,3 +33,5 @@ metadata:
 spec:
   ipAddressPools:
     - dyn-ips
+    - api-pool
+    - apps-pool

@@ -48,10 +48,14 @@ spec:
   {{- if hasKey $val "enableAutoSync" }}
     {{- $enableAutoSync = $val.enableAutoSync }}
   {{- end }}
+  {{- $autoSyncPrune := $.Values.default.app.autoSyncPrune }}
+  {{- if hasKey $val "autoSyncPrune" }}
+    {{- $autoSyncPrune = $val.autoSyncPrune }}
+  {{- end }}
   {{- if $enableAutoSync }}
   syncPolicy:
     automated:
-      prune: {{ $val.autoSyncPrune | default $.Values.default.app.autoSyncPrune | default true }}
+      prune: {{ $autoSyncPrune }}
       selfHeal: true
     retry:
       backoff:
@@ -118,9 +122,9 @@ spec:
   {{- end }}
 
   {{- if $val.extraFields }}
-    {{ tpl $val.extraFields $ | indent 2 }}
+{{ tpl $val.extraFields $ | nindent 2 }}
   {{- else if $.Values.default.app.extraFields }}
-    {{ tpl $.Values.default.app.extraFields $ | indent 2 }}
+{{ tpl $.Values.default.app.extraFields $ | nindent 2 }}
   {{- end }}
 {{- end }}
 {{- end }}

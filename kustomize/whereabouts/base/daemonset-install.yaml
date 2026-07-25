@@ -29,7 +29,6 @@ rules:
   resources:
   - ippools
   - overlappingrangeipreservations
-  - nodeslicepools
   verbs:
   - get
   - list

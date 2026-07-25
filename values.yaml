@@ -9,7 +9,7 @@ projectOverride: null
 default:
   app:
     enableAutoSync: true
-    autoSyncPrune: "true"
+    autoSyncPrune: true
     destination:
       namespace: null
       server: https://kubernetes.default.svc
