@@ -1,4 +1,4 @@
-# Don't forget to update deployment/whereabouts-chart/templates/daemonset.yaml as well
+# Vendored Whereabouts DaemonSet used by this repository's Kustomize overlays.
 apiVersion: v1
 kind: ServiceAccount
 metadata:

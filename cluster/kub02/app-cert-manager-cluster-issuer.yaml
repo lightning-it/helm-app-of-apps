@@ -10,7 +10,7 @@ issuer:
 css:
   enabled: true
   name: hashicorp-vault
-  cloudflareSecretPath: kub01/cloudflare
+  cloudflareSecretPath: kub02/cloudflare
   cloudflareSecretProperty: api-token
 
 certificate:

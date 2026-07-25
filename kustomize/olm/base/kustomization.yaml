@@ -4,5 +4,5 @@ kind: Kustomization
 
 resources:
   # OLM CRDs und Core Installation
-  - https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.28.0/crds.yaml
-  - https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.28.0/olm.yaml
+  - https://raw.githubusercontent.com/operator-framework/operator-lifecycle-manager/d3afe92560091f35adbb4d1d2d07e7a7dee7f12e/deploy/upstream/quickstart/crds.yaml
+  - https://raw.githubusercontent.com/operator-framework/operator-lifecycle-manager/d3afe92560091f35adbb4d1d2d07e7a7dee7f12e/deploy/upstream/quickstart/olm.yaml

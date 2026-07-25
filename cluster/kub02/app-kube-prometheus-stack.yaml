@@ -25,7 +25,7 @@ alertmanager:
     global:
       smtp_smarthost: "mrx.degert-it.de:588"
       smtp_from: "k8s+secunet-kub02@degert-it.de"
-      smtp_auth_username: "secunet-kub01@mrx.degert-it.de"
+      smtp_auth_username: "secunet-kub02@mrx.degert-it.de"
       smtp_auth_password_file: /etc/alertmanager/secrets/smtp-credentials/password
       smtp_require_tls: true
       smtp_tls_config:

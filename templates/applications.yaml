@@ -30,7 +30,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
     {{- end }}
   {{- end }}
-  name: {{ $key }}
+  name: {{ $.curAppName }}
   namespace: infra-argocd
 spec:
   destination:

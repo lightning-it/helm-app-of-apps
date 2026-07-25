@@ -24,6 +24,7 @@ default:
     DeleteNamespace: "false"
     app_values_path: ""
     app_values: false
+    stage_values: false
     zone_values: false
     ## should always be false and just used to remove an app including all created resources completely from clusters
     ## e.g.:
