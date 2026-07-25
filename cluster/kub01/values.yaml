@@ -6,6 +6,8 @@ global:
 app_values_path: kub01
 
 applications:
+  monitoring:
+    customOverlay: kub01
   ingress-nginx-config:
     customOverlay: kub01
   metallb:

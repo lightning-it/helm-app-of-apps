@@ -29,7 +29,7 @@ alertmanager:
       smtp_auth_password_file: /etc/alertmanager/secrets/smtp-credentials/password
       smtp_require_tls: true
       smtp_tls_config:
-        insecure_skip_verify: true
+        insecure_skip_verify: false
     route:
       group_by: ["alertname", "namespace"]
       group_wait: 30s

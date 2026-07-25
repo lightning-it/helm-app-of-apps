@@ -51,6 +51,7 @@ applications:
     appstargetRevision: kub10
   monitoring:
     enabled: true
+    customOverlay: kub02
   loki:
     enabled: true
     chart: loki
