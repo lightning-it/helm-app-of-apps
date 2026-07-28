@@ -1,0 +1,6 @@
+* @lightning-it/ent:release
+
+/.github/ @lightning-it/ent:release
+/Chart.yaml @lightning-it/ent:release
+/templates/ @lightning-it/ent:release
+/values.yaml @lightning-it/ent:release
