@@ -44,7 +44,7 @@ for values_file in "${cluster_values[@]}"; do
   fi
 
   if grep -Eq \
-    "^[[:space:]]*targetRevision:[[:space:]]*['\"]?(HEAD|latest)['\"]?([[:space:]#]|$)" \
+    "^[[:space:]]*targetRevision:[[:space:]]*((HEAD|latest)|'(HEAD|latest)'|\"(HEAD|latest)\")([[:space:]]+#[^[:cntrl:]]*)?[[:space:]]*$" \
     "$rendered"; then
     echo "${values_file}: rendered an implicit or floating targetRevision" >&2
     exit 1
