@@ -1,0 +1,7 @@
+{
+  "develop_parent_sha": "8f87f57aaa4f709ffd72900b78b8ef4d5645d62d",
+  "main_sha": "79fd5c6c56dc53f8a082304da415c45d166ded87",
+  "purpose": "Bind the reviewed main ancestry backmerge.",
+  "repository": "lightning-it/helm-app-of-apps",
+  "schema_version": 1
+}
