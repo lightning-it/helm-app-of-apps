@@ -22,8 +22,15 @@ helm template lit-quality . \
   --set-string global.baseDomain=example.invalid \
   | grep -q '^kind: Application$'
 
+shopt -s nullglob
+cluster_values=(cluster/*/values.yaml)
+if [[ "${#cluster_values[@]}" -eq 0 ]]; then
+  echo "no cluster values files found" >&2
+  exit 1
+fi
+
 cluster_count=0
-for values_file in cluster/*/values.yaml; do
+for values_file in "${cluster_values[@]}"; do
   cluster_name="$(basename "$(dirname "$values_file")")"
   rendered="$render_dir/${cluster_name}.yaml"
 
@@ -53,11 +60,6 @@ for values_file in cluster/*/values.yaml; do
 
   cluster_count=$((cluster_count + 1))
 done
-
-if [[ "$cluster_count" -eq 0 ]]; then
-  echo "no cluster values files found" >&2
-  exit 1
-fi
 
 overlay_count=0
 while IFS= read -r overlay; do

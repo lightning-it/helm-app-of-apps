@@ -34,7 +34,7 @@ promotes the reviewed `develop` commit to `main`. The promotion evidence is:
 
 `helm / quality` lints and renders the chart with every
 `cluster/*/values.yaml` file and builds every Kustomize overlay without cluster
-or network access. It fails closed when a cluster renders no Argo CD
+access. It fails closed when a cluster renders no Argo CD
 Application, when a source uses implicit `HEAD` or `latest`, or when automated
 pruning and self-healing are missing.
 
