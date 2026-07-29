@@ -39,6 +39,14 @@ Publishing targets: `none`.
 
 `helm-app-of-apps` is managed by the Lightning IT shared release and quality model.
 
+## Public configuration boundary
+
+This public GitOps repository intentionally contains non-secret, environment-specific
+service endpoints and operational routing addresses required to render the declared
+cluster state. Credentials and credential material must never be committed. SMTP
+authentication passwords are supplied through the externally managed
+`smtp-credentials` Kubernetes Secret and are referenced only by mounted file path.
+
 ## Features
 
 - Managed repository metadata and shared quality checks.
