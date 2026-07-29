@@ -12,6 +12,10 @@ command -v kubectl >/dev/null 2>&1 || {
   echo "kubectl with built-in kustomize support is required" >&2
   exit 1
 }
+kubectl kustomize --help >/dev/null 2>&1 || {
+  echo "kubectl with a working built-in kustomize subcommand is required" >&2
+  exit 1
+}
 
 render_dir="$(mktemp -d)"
 trap 'rm -rf "$render_dir"' EXIT
