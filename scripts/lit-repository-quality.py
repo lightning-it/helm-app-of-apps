@@ -369,7 +369,11 @@ def check_managed_assets() -> None:
             capture_output=True,
         ).stdout
         tracked = tracked_output.decode("utf-8", errors="strict").split("\0")
-    except (OSError, subprocess.CalledProcessError, UnicodeDecodeError) as exc:
+    except UnicodeDecodeError as exc:
+        raise AssertionError(
+            "managed asset inventory requires tracked filenames to be valid UTF-8"
+        ) from exc
+    except (OSError, subprocess.CalledProcessError) as exc:
         raise AssertionError(
             "managed asset inventory requires a readable Git worktree"
         ) from exc
