@@ -28,10 +28,6 @@ Products and runtimes:
 
 ## Local Commands
 
-Install `helm`, a `kubectl` version that provides the built-in
-`kubectl kustomize` subcommand, Python 3, and the repository's Python
-dependencies before running the complete local validation.
-
 Run the managed repository-policy checks:
 
 ```bash
