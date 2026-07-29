@@ -28,18 +28,6 @@ Products and runtimes:
 
 ## Local Commands
 
-Prerequisites:
-
-- Python 3.14, matching the repository-quality workflow.
-- `PyYAML==6.0.3` for fail-closed embedded YAML validation.
-- Helm 3, installed through the pinned `azure/setup-helm` action in CI.
-
-Install the Python validation dependency:
-
-```bash
-python3 -m pip install PyYAML==6.0.3
-```
-
 Run the managed repository-policy checks:
 
 ```bash

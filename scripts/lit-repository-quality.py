@@ -241,24 +241,21 @@ def check_embedded_code() -> None:
     result = subprocess.run(
         ["git", "-c", f"safe.directory={ROOT}", "ls-files", "-z"],
         cwd=ROOT,
+        text=True,
+        encoding="utf-8",
+        errors="surrogateescape",
         capture_output=True,
         check=False,
     )
     if result.returncode:
-        details = result.stderr.decode("utf-8", errors="replace").strip()
+        details = result.stderr.strip()
         raise AssertionError(
             "cannot enumerate tracked Markdown files with git ls-files"
             + (f": {details}" if details else "")
         )
-    try:
-        tracked_paths = result.stdout.decode("utf-8", errors="strict")
-    except UnicodeDecodeError as exc:
-        raise AssertionError(
-            "tracked Markdown filenames must be valid UTF-8"
-        ) from exc
     markdown_paths = sorted(
         path
-        for path in tracked_paths.split("\0")
+        for path in result.stdout.split("\0")
         if path and Path(path).suffix.lower() == ".md"
     )
     if markdown_paths:
@@ -362,17 +359,15 @@ def check_managed_assets() -> None:
                 raise AssertionError(f"{path_text}: local asset needs purpose and owner")
 
     try:
-        tracked_output = subprocess.run(
+        tracked = subprocess.run(
             ["git", "ls-files", "-z"],
             cwd=ROOT,
             check=True,
             capture_output=True,
-        ).stdout
-        tracked = tracked_output.decode("utf-8", errors="strict").split("\0")
-    except UnicodeDecodeError as exc:
-        raise AssertionError(
-            "managed asset inventory requires tracked filenames to be valid UTF-8"
-        ) from exc
+            text=True,
+            encoding="utf-8",
+            errors="surrogateescape",
+        ).stdout.split("\0")
     except (OSError, subprocess.CalledProcessError) as exc:
         raise AssertionError(
             "managed asset inventory requires a readable Git worktree"
