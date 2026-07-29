@@ -57,6 +57,7 @@ authentication passwords are supplied through the externally managed
 - [RELEASE.md](./RELEASE.md)
 - [TESTING.md](./TESTING.md)
 - [SECURITY.md](./SECURITY.md)
+- [GitOps assurance, promotion, drift, and rollback](./GITOPS_ASSURANCE.md)
 
 ## Security
 

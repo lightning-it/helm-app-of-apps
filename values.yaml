@@ -19,7 +19,9 @@ default:
     path: .
     appsrepoURL: https://github.com/lightning-it/helm-app-of-apps.git
     appstargetRevision: main
-    targetRevision: HEAD
+    # Safe fallback for repository-backed sources. Deployments must never rely
+    # on Git's implicit HEAD because it is neither explicit nor auditable.
+    targetRevision: main
     CreateNamespace: "false"
     DeleteNamespace: "false"
     app_values_path: ""
