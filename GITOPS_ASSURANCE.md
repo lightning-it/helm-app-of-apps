@@ -8,13 +8,9 @@ required checks for that commit.
 
 ## Governing decisions and standards
 
-- [Repository Topology and Shared Engineering Assets](https://lit.atlassian.net/wiki/spaces/LIT/pages/2878636297)
-- [Branching, Review and Release Governance](https://lit.atlassian.net/wiki/spaces/LIT/pages/2878603438)
-- [Mandatory CI Quality and Artifact Assurance](https://lit.atlassian.net/wiki/spaces/LIT/pages/2878636340)
-- [Repository and Secure SDLC Standard](https://lit.atlassian.net/wiki/spaces/LIT/pages/2887778335)
-- [Technology Engineering Standards](https://lit.atlassian.net/wiki/spaces/LIT/pages/2886762765)
-- [Quality Gates and Definition of Done](https://lit.atlassian.net/wiki/spaces/LIT/pages/2887123058)
-- [OpenSSF and Software Supply Chain Assurance](https://lit.atlassian.net/wiki/spaces/LIT/pages/2887024876)
+Lightning IT's governing engineering decisions are maintained in the internal
+architecture decision record system. Internal knowledge-base locations are not
+published in this public repository.
 
 The implementation also applies the relevant controls from
 [NIST SP 800-218 (SSDF)](https://csrc.nist.gov/pubs/sp/800/218/final),
