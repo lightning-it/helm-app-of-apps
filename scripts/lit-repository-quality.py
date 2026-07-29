@@ -124,6 +124,17 @@ def check_generated_docs(meta: dict[str, str]) -> None:
         raise AssertionError("RELEASE.md does not include the repository type")
     if "Release Evidence" not in release:
         raise AssertionError("RELEASE.md does not describe release evidence")
+    if meta.get("repository_type", "") == "container_image":
+        for asset in [
+            "release-evidence.json",
+            "release-evidence.md",
+            "release-provenance.intoto.jsonl",
+            "sbom.cdx.json",
+            "SHA256SUMS",
+            "SHA256SUMS.sigstore.json",
+        ]:
+            if f"`{asset}`" not in release:
+                raise AssertionError(f"RELEASE.md does not list required release asset {asset}")
     if "Test Profiles" not in testing:
         raise AssertionError("TESTING.md does not describe test profiles")
     for term in ["OpenSSF Readiness", "Scorecard", "Best Practices Badge", "Security Policy"]:
@@ -226,6 +237,53 @@ def check_markdown() -> None:
             raise AssertionError(f"{path.name} must end with a newline")
 
 
+def check_embedded_code() -> None:
+    result = subprocess.run(
+        ["git", "-c", f"safe.directory={ROOT}", "ls-files", "-z"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode:
+        details = result.stderr.decode("utf-8", errors="replace").strip()
+        raise AssertionError(
+            "cannot enumerate tracked Markdown files with git ls-files"
+            + (f": {details}" if details else "")
+        )
+    try:
+        tracked_paths = result.stdout.decode("utf-8", errors="strict")
+    except UnicodeDecodeError as exc:
+        raise AssertionError(
+            "tracked Markdown filenames must be valid UTF-8"
+        ) from exc
+    markdown_paths = sorted(
+        path
+        for path in tracked_paths.split("\0")
+        if path and Path(path).suffix.lower() == ".md"
+    )
+    if markdown_paths:
+        validator = ROOT / "scripts" / "validate-embedded-code.py"
+        shared_validator = ROOT / "default" / "scripts" / "validate-embedded-code.py"
+        if not validator.is_file() and shared_validator.is_file():
+            validator = shared_validator
+        command_prefix = [
+            sys.executable,
+            validator.relative_to(ROOT).as_posix(),
+        ]
+        batch: list[str] = []
+        batch_bytes = 0
+        for path in markdown_paths:
+            path_bytes = len(os.fsencode(path)) + 1
+            if batch and (len(batch) >= 100 or batch_bytes + path_bytes > 60_000):
+                run([*command_prefix, *batch])
+                batch = []
+                batch_bytes = 0
+            batch.append(path)
+            batch_bytes += path_bytes
+        if batch:
+            run([*command_prefix, *batch])
+
+
 def check_managed_assets() -> None:
     """Verify the optional repository-specific provenance inventory."""
     inventory_path = ROOT / ".lit" / "managed-assets.json"
@@ -304,15 +362,17 @@ def check_managed_assets() -> None:
                 raise AssertionError(f"{path_text}: local asset needs purpose and owner")
 
     try:
-        tracked = subprocess.run(
+        tracked_output = subprocess.run(
             ["git", "ls-files", "-z"],
             cwd=ROOT,
             check=True,
             capture_output=True,
-            text=True,
-            encoding="utf-8",
-            errors="surrogateescape",
-        ).stdout.split("\0")
+        ).stdout
+        tracked = tracked_output.decode("utf-8", errors="strict").split("\0")
+    except UnicodeDecodeError as exc:
+        raise AssertionError(
+            "managed asset inventory requires tracked filenames to be valid UTF-8"
+        ) from exc
     except (OSError, subprocess.CalledProcessError) as exc:
         raise AssertionError(
             "managed asset inventory requires a readable Git worktree"
@@ -341,6 +401,7 @@ def main() -> int:
         check_generated_docs(meta)
         check_secret_safe_generated_docs()
         check_markdown()
+        check_embedded_code()
         check_managed_assets()
         repo_type = meta.get("repository_type", "")
         check_terraform(repo_type)
