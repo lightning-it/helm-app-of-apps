@@ -21,11 +21,11 @@ Publishing targets: `none`.
 
 ## Supported and Tested Platforms
 
-| Platform / Product | Status | Validation |
-|---|---:|---|
-| ubuntu-latest | Supported | Helm lint/template |
-| helm | Tested where applicable | Helm lint/template |
-| kubernetes | Tested where applicable | Helm lint/template |
+| Platform / Product |                  Status | Validation         |
+| ------------------ | ----------------------: | ------------------ |
+| ubuntu-latest      |               Supported | Helm lint/template |
+| helm               | Tested where applicable | Helm lint/template |
+| kubernetes         | Tested where applicable | Helm lint/template |
 
 <!-- END LIT_SHARED_RELEASE_MODEL -->
 
@@ -38,6 +38,14 @@ Publishing targets: `none`.
 <!-- END LIT_QUALITY_BADGES -->
 
 `helm-app-of-apps` is managed by the Lightning IT shared release and quality model.
+
+## Public configuration boundary
+
+This public GitOps repository intentionally contains non-secret, environment-specific
+service endpoints and operational routing addresses required to render the declared
+cluster state. Credentials and credential material must never be committed. SMTP
+authentication passwords are supplied through the externally managed
+`smtp-credentials` Kubernetes Secret and are referenced only by mounted file path.
 
 ## Features
 

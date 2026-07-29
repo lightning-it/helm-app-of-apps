@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-api-lb
+  namespace: kube-system
+  annotations:
+    metallb.io/address-pool: api-pool
+spec:
+  type: LoadBalancer
+  selector:
+    component: kube-apiserver
+  ports:
+  - name: https
+    port: 6443
+    targetPort: 6443
+    protocol: TCP

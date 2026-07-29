@@ -1,0 +1,69 @@
+---
+global:
+  envName: kub02
+  baseDomain: poc01.cloud.l-it.io
+
+app_values_path: kub02
+
+applications:
+  local-path-storage:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/local-path-storage
+    customOverlay: kub02
+    targetRevision: develop
+    syncwave: -100
+    destination:
+      namespace: local-path-storage
+  whereabouts:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/whereabouts
+    targetRevision: develop
+    syncwave: -101
+    destination:
+      namespace: kube-system
+  kubevirt:
+    enabled: true
+    targetRevision: develop
+  ingress-nginx-config:
+    enabled: true
+    customOverlay: kub02
+    targetRevision: develop
+  metallb:
+    enabled: true
+    customOverlay: kub02
+    targetRevision: develop
+  rook-ceph-operator:
+    enabled: true
+  rook-ceph-instance:
+    enabled: true
+    app_values: true
+    appstargetRevision: develop
+  external-secrets-instance:
+    enabled: true
+    app_values: true
+    appstargetRevision: develop
+  cert-manager-cluster-issuer:
+    enabled: true
+    appstargetRevision: develop
+  monitoring:
+    enabled: true
+    customOverlay: kub02
+  loki:
+    enabled: true
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 17.1.1
+    appstargetRevision: develop
+  promtail:
+    enabled: false
+    appstargetRevision: develop
+  alloy:
+    enabled: true
+    appstargetRevision: develop
+  kube-prometheus-stack:
+    enabled: true
+    appstargetRevision: develop

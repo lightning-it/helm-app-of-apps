@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # Vendored from operator-framework/operator-lifecycle-manager commit
+  # d3afe92560091f35adbb4d1d2d07e7a7dee7f12e.
+  - crds.yaml
+  - olm.yaml

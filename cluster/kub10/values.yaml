@@ -1,0 +1,54 @@
+---
+global:
+  envName: kub10
+  baseDomain: poc01.cloud.l-it.io
+
+app_values_path: kub10
+
+applications:
+  local-path-storage:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/local-path-storage
+    targetRevision: develop
+    syncwave: -100
+    destination:
+      namespace: local-path-storage
+  whereabouts:
+    enabled: true
+    sourceType: kustomize
+    repoURL: https://github.com/lightning-it/helm-app-of-apps.git
+    path: kustomize/whereabouts
+    targetRevision: develop
+    syncwave: -101
+    destination:
+      namespace: kube-system
+  kubevirt:
+    enabled: true
+    targetRevision: develop
+  ingress-nginx-config:
+    enabled: false
+    customOverlay: kub10
+  metallb:
+    enabled: false
+    customOverlay: kub10
+  rook-ceph-operator:
+    enabled: false
+  rook-ceph-instance:
+    enabled: false
+  external-secrets-instance:
+    enabled: false
+  cert-manager-cluster-issuer:
+    enabled: false
+  monitoring:
+    enabled: false
+  loki:
+    enabled: false
+    appstargetRevision: develop
+  promtail:
+    enabled: false
+    appstargetRevision: develop
+  kube-prometheus-stack:
+    enabled: false
+    appstargetRevision: develop
