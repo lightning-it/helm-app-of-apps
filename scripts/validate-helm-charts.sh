@@ -9,7 +9,7 @@ command -v helm >/dev/null 2>&1 || {
   exit 1
 }
 command -v kubectl >/dev/null 2>&1 || {
-  echo "kubectl with built-in kustomize support is required" >&2
+  echo "kubectl is required" >&2
   exit 1
 }
 kubectl kustomize --help >/dev/null 2>&1 || {
