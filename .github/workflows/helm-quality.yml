@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   quality:
+    timeout-minutes: 30
     name: helm / quality
     runs-on: ubuntu-latest
     steps:
